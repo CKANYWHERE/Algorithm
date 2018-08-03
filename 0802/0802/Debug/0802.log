@@ -1,0 +1,3 @@
+﻿  11058.cpp
+c:\users\min chang gyeong\source\repos\0802\0802\11058.cpp(15): warning C4244: '=': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  0802.vcxproj -> C:\Users\Min Chang Gyeong\source\repos\0802\Debug\0802.exe

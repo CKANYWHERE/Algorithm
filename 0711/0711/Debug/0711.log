@@ -1,0 +1,3 @@
+﻿  7576.cpp
+c:\users\min chang gyeong\source\repos\0711\0711\7576.cpp(18): warning C4477: 'scanf_s' : 서식 문자열 '%d'에 'int *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int'입니다.
+  0711.vcxproj -> c:\Users\min chang gyeong\source\repos\0711\Debug\0711.exe
