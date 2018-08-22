@@ -7,7 +7,8 @@ int dx[] = { -1, 0, 1, 0 };
 int dy[] = { 0, -1, 0, 1 };
 int max_value = 0;
 char arr[51][51];
-int visited[51][51];
+bool visited[51][51];
+int len[61][61];
 
 void bfs(int r, int c) {
 	queue<pair<int, int>> q;
@@ -22,11 +23,10 @@ void bfs(int r, int c) {
 			int nc = root_c + dy[i];
 			if (arr[nr][nc] == 'L' && visited[nr][nc] == 0) {
 				q.push(make_pair(nr, nc));
-
-				visited[nr][nc] = visited[root_r][root_c] + 1;
-				if (max_value < visited[nr][nc])
-					max_value = visited[nr][nc];
-
+				visited[nr][nc] = true;
+				len[nr][nc] = len[root_r][root_c] + 1;
+				if (max_value < len[nr][nc])
+					max_value = len[nr][nc];
 			}
 		}
 	}
@@ -34,23 +34,27 @@ void bfs(int r, int c) {
 
 int main() {
 
-	int r, c;
-	cin >> r >> c;
+	int h, w; //y,xÁÂÇ¥
+	cin >> h >> w;
 
-	for (int i = 0; i < r; i++) {
-		for (int j = 0; j < c; j++) {
-			cin >> arr[r][c];
+
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			cin >> arr[i][j];
+			cout << arr[i][j];
 		}
 	}
 
-	for (int i = 0; i < r; i++) {
-		for (int j = 0; j < c; j++) {
-			if (arr[r][c] == 'L') {
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			if (arr[i][j] == 'L' && visited[i][j] == false) {
 				bfs(i, j);
 				memset(visited, 0, sizeof(visited));
+				memset(len, 0, sizeof(len));
 			}
 		}
 	}
-	cout << max_value << "\n";	
+
+	cout << max_value << "\n";
 	return 0;
 }
