@@ -1,2 +1,5 @@
-﻿  1107.cpp
+﻿  2529.cpp
+c:\users\chang\desktop\mycode\algorithm\algorithm\algorithm\2529.cpp(9): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\chang\desktop\mycode\algorithm\algorithm\algorithm\2529.cpp(45): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\chang\desktop\mycode\algorithm\algorithm\algorithm\2529.cpp(50): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   Algorithm.vcxproj -> C:\Users\Chang\Desktop\Mycode\Algorithm\Algorithm\Debug\Algorithm.exe
