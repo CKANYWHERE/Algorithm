@@ -1,13 +1,15 @@
 #include "pch.h"
 #include <iostream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
-int arr[26][26];
-int dist[26][26];
+int arr[30][30];
+int dist[30][30];
 int n;
 int dx[] = { -1,1,0,0 };
 int dy[] = { 0,0,-1,1 };
+int ans[25*25];
 
 void bfs(int x, int y, int cnt) {
 	queue<pair<int, int>> q;
@@ -31,15 +33,13 @@ void bfs(int x, int y, int cnt) {
 }
 
 int main() {
-	int cnt = 0;
 	cin >> n;
-
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			cin >> arr[i][j];
 		}
 	}
-
+	int cnt = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (arr[i][j] == 1 && dist[i][j] == 0) {
@@ -47,8 +47,17 @@ int main() {
 			}
 		}
 	}
-
 	cout << cnt << "\n";
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			ans[dist[i][j]] += 1;
+		}
+	}
+	sort(ans + 1, ans + cnt +1);
+	for (int i = 1; i <= cnt; i++) {
+		cout << ans[i] << "\n";
+	}
 
 	return 0;
 }
