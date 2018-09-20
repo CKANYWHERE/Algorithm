@@ -1,59 +1,63 @@
 #include "pch.h"
 #include <iostream>
 #include <algorithm>
+#include <cstring>
+#include <cstdio>
+#include <string>
+#include <algorithm>
 using namespace std;
-
-int arr[101][101];
-bool visited[101][101];
-int dx[] = { 0,0,1,-1 };
-int dy[] = { 1,-1,0,0 };
+int a[100][100];
+int visited[100][100];
 int n;
+int cnt = 0;
+int dx[] = { 1, 0, -1, 0 };
+int dy[] = { 0, 1, 0, -1 };
 
-void dfs(int h, int w, int k) {
-	
-	if (h >= n || w >= n || h < 0 || w < 0)
+void dfs(int x, int y, int h) {
+	if (x >= n || y >= n || x < 0 || y < 0)
 		return;
 
-	if (visited[h][w] || arr[h][w] <= k)
+	if (visited[y][x] || a[y][x] <= h)
 		return;
 
-	visited[h][w] = true;
+	visited[y][x] = true;
 
 	for (int i = 0; i < 4; i++) {
-		int nx = h + dx[i];
-		int ny = w + dy[i];
+		int nx = x + dx[i];
+		int ny = y + dy[i];
 
-		dfs(nx, ny, i);
+		dfs(nx, ny, h);
 	}
-	
 }
 
-int main() {
-	int maxV = 0;
-	int minV = 100;
-	cin >> n;
+int main(void) {
+	int minvalue = 987654321, maxvalue = 0;
+	scanf_s("%d", &n);
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			cin >> arr[i][j];
-			maxV = max(maxV, arr[i][j]);
-			minV = min(minV, arr[i][j]);
+			scanf_s("%d", &a[i][j]);
+			minvalue = min(minvalue, a[i][j]);
+			maxvalue = max(maxvalue, a[i][j]);
 		}
 	}
 
-	int cnt;
 	int ans = 1;
-	for (int i = minV; i < maxV; i++) {
+	for (int i = minvalue; i < maxvalue; i++) {
 		cnt = 0;
-		memset(visited, false, sizeof(visited));
-		for (int j = 0; j < n; j++) {
-			for (int k = 0; k < n; k++) {
-				if (!visited[j][k] && arr[j][k] > i) {
-					dfs(j, k, i);
+		for (int j = 0; j < 100; j++) fill_n(visited[j], 100, false);
+
+		for (int y = 0; y < n; y++) {
+			for (int x = 0; x < n; x++) {
+				if (!visited[y][x] && a[y][x] > i) {
+					dfs(x, y, i);
 					cnt++;
 				}
 			}
 		}
 		ans = max(ans, cnt);
 	}
-	cout << ans << "\n";
+
+	printf("%d\n", ans);
+
+	return 0;
 }
