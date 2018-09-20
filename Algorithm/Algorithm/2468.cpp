@@ -10,38 +10,45 @@ int dy[] = { 1,-1,0,0 };
 int n;
 
 void dfs(int h, int w, int k) {
-	if (h >= n || w >= n && h || h < 0 || w < 0)
+	
+	if (h >= n || w >= n || h < 0 || w < 0)
 		return;
-	if (visited[h][w] || arr[h][w]<k)
+
+	if (visited[h][w] || arr[h][w] <= k)
 		return;
+
 	visited[h][w] = true;
 
 	for (int i = 0; i < 4; i++) {
-		int nh = h + dx[i];
-		int nw = w + dy[i];
-		dfs(nh, nw, k);
+		int nx = h + dx[i];
+		int ny = w + dy[i];
+
+		dfs(nx, ny, i);
 	}
+	
 }
 
 int main() {
+	int maxV = 0;
+	int minV = 100;
 	cin >> n;
-	int cnt=0, ans=0;
-	int minvalue = 987654321, maxvalue = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			cin >> arr[i][j];
-			minvalue = min(minvalue, arr[i][j]);
-			maxvalue = max(maxvalue, arr[i][j]);
+			maxV = max(maxV, arr[i][j]);
+			minV = min(minV, arr[i][j]);
 		}
 	}
 
-	for (int k = minvalue; k < maxvalue; k++) {
+	int cnt;
+	int ans = 1;
+	for (int i = minV; i < maxV; i++) {
 		cnt = 0;
 		memset(visited, false, sizeof(visited));
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (!visited[i][j] && arr[i][j] > k) {
-					dfs(i, j, k);
+		for (int j = 0; j < n; j++) {
+			for (int k = 0; k < n; k++) {
+				if (!visited[j][k] && arr[j][k] > i) {
+					dfs(j, k, i);
 					cnt++;
 				}
 			}
@@ -49,5 +56,4 @@ int main() {
 		ans = max(ans, cnt);
 	}
 	cout << ans << "\n";
-	return 0;
 }

@@ -12,6 +12,10 @@ int ans = 0;
 int n, m;
 
 void dfs(int node) {
+
+	if (check[node])
+		return;
+
 	check[node] = true;
 	cnt+=1;
 	ans = max(cnt,ans);
