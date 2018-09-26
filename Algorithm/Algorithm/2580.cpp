@@ -3,6 +3,7 @@
 using namespace std;
 int a[9][9];
 bool stop;
+
 bool impossible(int num, int x, int y) {
 	int rx = x / 3 * 3, ry = y / 3 * 3;
 	for (int i = 0; i < 9; i++)
@@ -12,6 +13,7 @@ bool impossible(int num, int x, int y) {
 			if (a[i][j] == num) return false;
 	return true;
 }
+
 void go() {
 	if (stop) return;
 	bool flag = false;
