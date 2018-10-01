@@ -16,6 +16,7 @@ int main()
 	for (int i = 1; i <= slen; i++)
 	{
 		int x = n[i] - '0';
+		cout << x << "\n";
 		if (x >= 1 && x <= 9)
 			dp[i] = (dp[i] + dp[i - 1]) % mod;
 		if (i == 1) continue;
