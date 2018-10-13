@@ -1,61 +1,68 @@
 #include "pch.h"
-#include <iostream>
-#include <queue>
-#include <vector>
 #include <cstdio>
-
+#include <vector>
+#include <queue>
 using namespace std;
-vector<pair<int, int>>graph[100001];
-queue<int> q;
-bool check[100001];
-int start=0;
-int dest=0;
 
-bool bfs(int n) {
-	memset(check,false,sizeof(check));
-	q.push(start);
-	check[start] = true;
-	while (!q.empty()) {
-		int now = q.front();
-		q.pop();
-		if (now == dest) return true;
-		for (int i = 0; graph[now].size(); i++) {
-			int next = graph[now][i].first;
-			int w = graph[now][i].second;
+int n, m;
+int start, dest;
+vector<pair<int, int> > graph[100001];
+int visit[100001];
+queue<int> que;
 
-			if (check[next] == 0 && n <= w) {
-				check[next] = 1;
-				q.push(next);
+void init() {
+	for (int i = 1; i <= n; i++)
+		visit[i] = 0;
+	while (!que.empty())     que.pop();
+}
+
+int bfs(int limit) {
+	init();
+	que.push(start);
+	visit[start] = 1;
+	while (!que.empty()) {
+		int current = que.front();
+		que.pop();
+		if (current == dest)    return 1;
+		for (int i = 0; i < graph[current].size(); i++) {
+			int next = graph[current][i].first;
+			int w = graph[current][i].second;
+
+			if (visit[next] == 0 && limit <= w) {
+				visit[next] = 1;
+				que.push(next);
 			}
 		}
 	}
-}
-
-int main() {
-	int n, m;
-	cin >> n >> m;
-	int w;
-	for (int i = 0; i < m; i++) {
-		cin >> n >> m >> w;
-		graph[n].push_back(make_pair(m, w));
-		graph[m].push_back(make_pair(n, w));
-	}
-	
-	cin >> start >> dest;
-	int l = 0;
-	int r = 100001;
-	int ans;
-	while (l <= r) {
-		int mid = (l + r) / 2;
-		if (bfs(mid)) {
-			ans = mid;
-			l = mid + 1;
-		}
-		else {
-			r = mid - 1;
-		}
-	}
-
-	cout << ans << "\n";
 	return 0;
 }
+
+int solve(int e)
+{
+	int s = 0, middle;
+	while (s <= e) {
+		middle = (s + e) / 2;
+		if (bfs(middle))        s = middle + 1;
+		else                    e = middle - 1;
+	}
+	return e;
+}
+
+int main()
+{
+	int one, two, weight;
+	int mx = 0;
+	scanf_s("%d %d", &n, &m);
+	for (int i = 0; i < m; i++) {
+		scanf_s("%d %d %d", &one, &two, &weight);
+
+		graph[one].push_back(make_pair(two, weight));
+		graph[two].push_back(make_pair(one, weight));
+
+		if (weight > mx)    mx = weight;
+	}
+	scanf_s("%d %d", &start, &dest);
+	printf("%d\n", solve(mx));
+	return 0;
+}
+
