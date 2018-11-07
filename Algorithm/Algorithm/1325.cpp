@@ -12,8 +12,9 @@ int maxValue = 0;
 int cnt = 0;
 
 void dfs(int node) {
-	if (check[node]) return;
-	else check[node] = true;
+	if (check[node])
+		return;
+	check[node] = true;
 	cnt++;
 	for (int i = 0; i < graph[node].size(); i++) {
 		int next_node = graph[node][i];
@@ -23,35 +24,31 @@ void dfs(int node) {
 
 int main() {
 	int n, m;
-	
 	cin >> n >> m;
-
 	for (int i = 0; i < m; i++) {
 		int start, end;
 		cin >> start >> end;
 		graph[end].push_back(start);
 	}
 
-	vector<int> res;
+	vector<int> ans;
 
 	for (int i = 1; i <= n; i++) {
 		memset(check, false, sizeof(check));
 		cnt = 0;
 		dfs(i);
-		maxValue = max(maxValue, cnt);
-		if (cnt == maxValue) {
-			res.push_back(i);
-		}
+		maxValue = max(cnt, maxValue);
+		if (cnt == maxValue)
+			ans.push_back(i);
 		if (cnt > maxValue) {
-			res.clear();
-			res.push_back(i);
+			ans.clear();
+			ans.push_back(i);
 		}
 	}
 
-	for (int i = 0; i < res.size(); i++) {
-		cout << res[i] << " ";
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i] << " ";
 	}
 	cout << "\n";
-
 	return 0;
 }
