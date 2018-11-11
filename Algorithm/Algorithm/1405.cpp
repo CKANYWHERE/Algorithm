@@ -12,17 +12,16 @@ double P[4];
 double dfs(int r, int c, int n) {
 	if (n == 0) return 1.0;
 
+	double result = 0;
 	visited[r][c] = true;
-	double result = 0.0;
 
 	for (int i = 0; i < 4; i++) {
-		int nc = c + dy[i];
-		int nr = r + dx[i];
-
+		int nr = dx[i] + r;
+		int nc = dy[i] + c;
 		if (visited[nr][nc]) continue;
-		result += P[i] * dfs(nr, nc, n - 1);
-
+		result = P[i] * dfs(nr, nc, n - 1);
 	}
+
 	visited[r][c] = false;
 	return result;
 
@@ -39,6 +38,6 @@ int main() {
 	}
 
 	printf("%.10lf\n", dfs(14, 14, n));
-
+	
 	return 0;
 }
