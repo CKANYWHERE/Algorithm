@@ -9,24 +9,28 @@ int main() {
 	long long maxV = 0;
 	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
-		maxV = max(maxV,arr[i]);
+		maxV = max(maxV, arr[i]);
 	}
-	long long l = 1;
-	long long r = maxV;
-	while (l <= r) {
-		long long mid = (l + r) / 2;
-		int ans = 0;
+
+	long long left = 0;
+	long long right = maxV;
+	long long res = 0;
+
+	while (left <= right) {
+		long long mid = (left + right)/2;
+		long long ans = 0;
 		for (int i = 0; i < n; i++) {
 			ans += arr[i] / mid;
 		}
-		if (ans >= m) {
-			l = mid + 1;
-			maxV = min(maxV, mid);
+		if (ans == m) {
+			left = mid + 1;
+			res = mid;
 		}
-		else
-			r = mid - 1;
+		else {
+			right = mid - 1;
+		}
 	}
+	cout << res << "\n";
 
-	cout << maxV << "\n";
 	return 0;
 }
