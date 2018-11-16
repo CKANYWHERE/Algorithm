@@ -14,7 +14,7 @@ void dfs(int num, int cnt) {
 	if (num > chiken.size()) return;
 
 	if (cnt == m) {
-		int cmp = 0;
+		int sum = 0;
 		for (int i = 0; i < house.size(); i++) {
 			int dist = 987654321;
 			for (int j = 0; j < chiken.size(); j++) {
@@ -23,17 +23,15 @@ void dfs(int num, int cnt) {
 					int c1 = house[i].second;
 					int r2 = chiken[j].first;
 					int c2 = chiken[j].second;
-
-					int res = abs(r1 - r2) + abs(c1 - c2);
-					dist = min(dist, res);
+					int tmp = abs(r1 - r2) + abs(c1 - c2);
+					dist = min(dist, tmp);
 				}
 			}
-			cmp += dist;
+			sum += dist;
 		}
-		ans = min(cmp, ans);
+		ans = min(sum, ans);
 		return;
 	}
-
 	check[num] = true;
 	dfs(num + 1, cnt + 1);
 	check[num] = false;
@@ -41,20 +39,17 @@ void dfs(int num, int cnt) {
 }
 
 int main() {
-	
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			cin >> board[i][j];
-			if (board[i][j] == 1)
-				house.push_back(make_pair(i, j));
-			else if (board[i][j] == 2)
-				chiken.push_back(make_pair(i, j));
+			int tmp = 0;
+			cin >> tmp;
+			if (tmp == 1) house.push_back(make_pair(i,j));
+			if (tmp == 2) chiken.push_back(make_pair(i, j));
 		}
 	}
 
 	dfs(0, 0);
-
 	cout << ans << "\n";
 	return 0;
 }
