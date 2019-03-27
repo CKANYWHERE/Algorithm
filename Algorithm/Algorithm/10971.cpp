@@ -1,11 +1,30 @@
 #include "pch.h"
 #include <iostream>
 #include <algorithm>
-#include <vector>
 using namespace std;
+
 int arr[20][20];
+int n;
+bool check[15];
+int minValue = 987654321;
+int start;
+
+void dfs(int x, int cnt, int sum) {
+	if (cnt == n && start == x) {
+		minValue = min(minValue, sum);
+		return;
+	}
+	for (int i = 0; i < n; i++) {
+		if (check[i]) continue;
+		if (arr[x][i] == 0) continue;
+		if (sum + arr[x][i] > minValue) continue;
+		check[i] = true;
+		dfs(i, cnt + 1, sum + arr[x][i]);
+		check[i] = false;
+	}
+}
+
 int main() {
-	int n;
 	cin >> n;
 
 	for (int i = 0; i < n; i++) {
@@ -14,31 +33,11 @@ int main() {
 		}
 	}
 
-	vector<int> d(n);
 	for (int i = 0; i < n; i++) {
-		d[i] = i;
+		start = i;
+		dfs(i, 0, 0);
 	}
 
-	int ans = 2147483647;
-	do {
-		bool ok = true;
-		int sum = 0;
-		for (int i = 0; i < n - 1; i++) {
-			if (arr[d[i]][d[i + 1]] == 0) {
-				ok = false;
-			}
-			else {
-				sum += arr[d[i]][d[i + 1]];
-			}
-		}
-		if (ok && arr[d[n - 1]][d[0]] != 0) {
-			sum += arr[d[n - 1]][d[0]];
-			if (ans > sum) ans = sum;
-		}
-	} while (next_permutation(d.begin() + 1, d.end()));
-
-	printf("%d\n", ans);
-
-
+	cout << minValue << "\n";
 	return 0;
 }
