@@ -1,25 +1,26 @@
 #include "pch.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 int a[10001];
-int d[10001];
+int dp[10001];
 int main() {
 	int n;
+	int temp1, temp2, temp3;
 	cin >> n;
 	for (int i = 1; i <= n; i++) {
 		cin >> a[i];
 	}
-	d[1] = a[1];
-	d[2] = a[1] + a[2];
+	dp[1] = a[1];
+	dp[2] = a[1] + a[2];
+
 	for (int i = 3; i <= n; i++) {
-		d[i] = d[i - 1];
-		if (d[i] < d[i - 2] + a[i]) {
-			d[i] = d[i - 2] + a[i];
-		}
-		if (d[i] < d[i - 3] + a[i] + a[i - 1]) {
-			d[i] = d[i - 3] + a[i] + a[i - 1];
-		}
+		temp1 = temp2 = temp3 = 0;
+		temp1 = dp[i - 1];
+		temp2 = dp[i - 2] + a[i];
+		temp3 = dp[i - 3] + a[i - 1] + a[i];
+		dp[i] = max(temp1, max(temp2, temp3));
 	}
-	printf("%d\n", d[n]);
+	cout << dp[n] << "\n";
 	return 0;
 }

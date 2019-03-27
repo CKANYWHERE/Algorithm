@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿  10819.cpp
 c:\users\chang\desktop\mycode\algorithm\algorithm\algorithm\10819.cpp(9): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 c:\users\chang\desktop\mycode\algorithm\algorithm\algorithm\10819.cpp(9): warning C4552: '<': 식의 결과가 사용되지 않습니다.
   Algorithm.vcxproj -> C:\Users\Chang\Desktop\Mycode\Algorithm\Algorithm\Debug\Algorithm.exe
+=======
+﻿  2156.cpp
+  Algorithm.vcxproj -> C:\Users\janu723\Desktop\Algorithm\Algorithm\Debug\Algorithm.exe
+>>>>>>> da7bd189aed52959bb6ea8228d5482c5934e4527

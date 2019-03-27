@@ -25,12 +25,12 @@ int main() {
 
 	sort(v.begin(), v.end());
 
-	int ans = 0;
+	int res = 0;
 
 	do {
 		int temp = calculate(v);
-		ans = max(ans, temp);
+		res = max(res, temp);
 	} while (next_permutation(v.begin(), v.end()));
-	cout << ans << "\n";
+	cout << res << "\n";
 	return 0;
 }
