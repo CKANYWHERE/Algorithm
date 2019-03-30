@@ -1,52 +1,40 @@
 #include "pch.h"
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
-bool broken[10];
-
-int possible(int c) {
-	if (c == 0) {
-		return broken[0] ? 0 : 1;
-	}
-	int len = 0;
-	while (c > 0) {
-		if(broken[c % 10]) return 0;
-		len++;
-		c /= 10;
-	}
-	return len;
-}
+int n, m, broke[10] = { 0, };
 
 int main() {
-	int n, m;
 	cin >> n >> m;
-
 	for (int i = 0; i < m; i++) {
 		int a;
 		cin >> a;
-		broken[a] = true;
+		broke[a] = 1;
 	}
-	int ans = n - 100;
-	ans = abs(ans);
-
-
-	for (int i = 0; i <= 1000000; i ++ ) {
-		int c = i;
-		int len = possible(c);
-
-		if (len > 0) {
-			int press = c - n;
-			if (press < 0) {
-				press = -press;
-			}
-			if (ans > len + press) {
-				ans = len + press;
+	int Min = (n - 100) < 0 ? -1 * (n - 100) : n - 100;
+	for (int i = 0; i <= 1000000; i++) {
+		int channel = i;
+		int leng = 0;
+		bool flag = false;
+		// 채널의 자릿수를 구해서 누를수있는지 판별 누를수있으면 Min값이랑 비교
+		while (1) {
+			if (broke[channel % 10])
+				break;
+			else {
+				channel /= 10;
+				leng++;
+				if (channel == 0) {
+					flag = true;
+					break;
+				}
 			}
 		}
+		if (flag) {
+			int result = (n - i) < 0 ? -1 * (n - i) : n - i;
+			if (result + leng < Min)
+				Min = result + leng;
+		}
 	}
-
-	cout << ans << "\n";
-
+	cout << Min << '\n';
 	return 0;
 }
